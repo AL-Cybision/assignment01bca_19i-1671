@@ -113,6 +113,9 @@ func main() {
 	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 102, "AL-Cybision to Rushad")
 	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 103, "Noman to Zaid")
 	mniBlockChain.listBlocks()
+	fmt.Println("Output After Block Changed")
+	mniBlockChain.list[1].changeBlock("AL-Cybision to Al-Rushad")
+	mniBlockChain.listBlocks()
 	// mniBlockChain.verifyChain()
 
 	//    const lastBlock = this.chain[this.chain.length - 1];
