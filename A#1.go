@@ -55,32 +55,47 @@ func (ls *blockchain) listBlocks() {
 	}
 }
 
+// function to change block transaction of the given block ref
 func (b *block) changeBlock(transaction string) {
 	b.transaction = transaction
 }
 
-// function to change block transaction of the given block ref
-// func (ls *blockchain) verifyChain() {
+func (ls *blockchain) verifyChain() bool {
+	valid := true
+	// fmt.Println(valid)
 
-// 	// if len(ls.list) == 1 {
-// 	var previousBlock block
-// 	var currentBlock block
-// 	for i := range ls.list {
-// 		currentBlock = (*ls.list[i])
-// 		if i == 1 {
-// 			previousBlock = (*ls.list[i])
-// 		}
-// 		if currentBlock.hash != calculateBlockHash(currentBlock) || previousBlock.hash != currentBlock.previousHash {
-// 			fmt.Println("BlockChain is not Valid")
-// 		} else {
-// 			fmt.Println("BlockChain is Valid")
-// 		}
-// 	}
+	for i := range ls.list {
+		// var valid = true
 
-// }
+		if i < (len(ls.list) - 1) {
+			fmt.Println("ls.list[i].hash", ls.list[i].hash)
+			fmt.Println("ls.list[i+1].previousHash", ls.list[i+1].previousHash)
+			fmt.Println("ls.list[i].hash", ls.list[i].hash)
+			fmt.Println(" calculateBlockHash(*ls.list[i])", calculateBlockHash(*ls.list[i]))
+			if ls.list[i].hash != ls.list[i+1].previousHash || ls.list[i].hash != calculateBlockHash(*ls.list[i]) {
 
-// function to verify blockchain in case any changes are made. This can be
-// done in two different ways:
+				// fmt.Println("Block is Invalid")
+				valid = false
+			} else {
+				// fmt.Println("Block is Valid")
+				// valid = true
+			}
+		} else {
+			if ls.list[i].hash != calculateBlockHash(*ls.list[i]) {
+
+				// fmt.Println("Block is Invalid")
+				valid = false
+			} else {
+				// fmt.Println("Block is Valid")
+				// valid = true
+			}
+
+		}
+
+	}
+
+	return valid
+}
 
 func calculateHash(stringToHash string) string { // function for calculating hash of a block
 	return fmt.Sprintf("%x", sha256.Sum256([]byte(stringToHash)))
@@ -92,7 +107,7 @@ func calculateBlockHash(b block) string { // function for calculating hash of a 
 	var str string
 	str = b.transaction + strconv.Itoa(b.nonce) + b.previousHash
 	b.hash = calculateHash(str)
-	return str
+	return b.hash
 
 }
 
@@ -112,11 +127,15 @@ func main() {
 	mniBlockChain.createBlock("0", 101, "Noman to AL-Cybision")
 	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 102, "AL-Cybision to Rushad")
 	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 103, "Noman to Zaid")
+	// mniBlockChain.listBlocks()
+	// fmt.Println("Output After Block Changed")
+	// mniBlockChain.list[1].changeBlock("AL-Cybision to Al-Rushad")
 	mniBlockChain.listBlocks()
-	fmt.Println("Output After Block Changed")
-	mniBlockChain.list[1].changeBlock("AL-Cybision to Al-Rushad")
-	mniBlockChain.listBlocks()
-	// mniBlockChain.verifyChain()
+	if mniBlockChain.verifyChain() {
+		fmt.Println("BlockChain is Valid")
+	} else {
+		fmt.Println("BlockChain is Not Valid")
+	}
 
 	//    const lastBlock = this.chain[this.chain.length - 1];
 
