@@ -1,4 +1,4 @@
-package assignment01bca_19i_1671
+package main
 
 import (
 	"crypto/sha256"
@@ -63,31 +63,40 @@ func (b *block) changeBlock(transaction string) {
 func (ls *blockchain) verifyChain() bool {
 	valid := true
 	// fmt.Println(valid)
+	if len(ls.list) == 1 {
+		if ls.list[0].hash != calculateBlockHash(*ls.list[0]) {
+			valid = false
+		}
 
-	for i := range ls.list {
-		// var valid = true
+	} else if len(ls.list) == 0 {
+		fmt.Println("BlockChain is empty , please populate it before verifying ")
+	} else {
+		for i := range ls.list {
+			// var valid = true
 
-		if i < (len(ls.list) - 1) {
-			fmt.Println("ls.list[i].hash", ls.list[i].hash)
-			fmt.Println("ls.list[i+1].previousHash", ls.list[i+1].previousHash)
-			fmt.Println("ls.list[i].hash", ls.list[i].hash)
-			fmt.Println(" calculateBlockHash(*ls.list[i])", calculateBlockHash(*ls.list[i]))
-			if ls.list[i].hash != ls.list[i+1].previousHash || ls.list[i].hash != calculateBlockHash(*ls.list[i]) {
+			if i < (len(ls.list) - 1) {
+				fmt.Println("ls.list[i].hash", ls.list[i].hash)
+				fmt.Println("ls.list[i+1].previousHash", ls.list[i+1].previousHash)
+				fmt.Println("ls.list[i].hash", ls.list[i].hash)
+				fmt.Println(" calculateBlockHash(*ls.list[i])", calculateBlockHash(*ls.list[i]))
+				if ls.list[i].hash != ls.list[i+1].previousHash || ls.list[i].hash != calculateBlockHash(*ls.list[i]) {
 
-				// fmt.Println("Block is Invalid")
-				valid = false
+					// fmt.Println("Block is Invalid")
+					valid = false
+				} else {
+					// fmt.Println("Block is Valid")
+					// valid = true
+				}
 			} else {
-				// fmt.Println("Block is Valid")
-				// valid = true
-			}
-		} else {
-			if ls.list[i].hash != calculateBlockHash(*ls.list[i]) {
+				if ls.list[i].hash != calculateBlockHash(*ls.list[i]) {
 
-				// fmt.Println("Block is Invalid")
-				valid = false
-			} else {
-				// fmt.Println("Block is Valid")
-				// valid = true
+					// fmt.Println("Block is Invalid")
+					valid = false
+				} else {
+					// fmt.Println("Block is Valid")
+					// valid = true
+				}
+
 			}
 
 		}
@@ -118,25 +127,20 @@ func (ls *blockchain) prev_hash() string {
 
 /*###############################	MAIN	#############################*/
 
-// func main() {
+func main() {
 
-// 	//   var blockchain []block
+	mniBlockChain := new(blockchain)
+	mniBlockChain.createBlock("0", 101, "Noman to AL-Cybision")
+	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 102, "AL-Cybision to Rushad")
+	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 103, "Noman to Zaid")
+	mniBlockChain.listBlocks()
+	fmt.Println("Output After Block Changed")
+	// mniBlockChain.list[1].changeBlock("AL-Cybision to Al-Rushad")
+	mniBlockChain.listBlocks()
+	if mniBlockChain.verifyChain() {
+		fmt.Println("BlockChain is Valid")
+	} else {
+		fmt.Println("BlockChain is Not Valid")
+	}
 
-// 	//   blockchain[0]=*newBlock("Noman to AL-Cybision" , 1111 , "0")
-// 	mniBlockChain := new(blockchain)
-// 	mniBlockChain.createBlock("0", 101, "Noman to AL-Cybision")
-// 	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 102, "AL-Cybision to Rushad")
-// 	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 103, "Noman to Zaid")
-// 	// mniBlockChain.listBlocks()
-// 	// fmt.Println("Output After Block Changed")
-// 	// mniBlockChain.list[1].changeBlock("AL-Cybision to Al-Rushad")
-// 	mniBlockChain.listBlocks()
-// 	if mniBlockChain.verifyChain() {
-// 		fmt.Println("BlockChain is Valid")
-// 	} else {
-// 		fmt.Println("BlockChain is Not Valid")
-// 	}
-
-// 	//    const lastBlock = this.chain[this.chain.length - 1];
-
-// }
+}
