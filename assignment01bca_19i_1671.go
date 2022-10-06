@@ -1,4 +1,4 @@
-package blockchain
+package assignment01bca_19i_1671
 
 import (
 	"crypto/sha256"
@@ -118,25 +118,25 @@ func (ls *blockchain) prev_hash() string {
 
 /*###############################	MAIN	#############################*/
 
-func main() {
+// func main() {
 
-	//   var blockchain []block
+// 	//   var blockchain []block
 
-	//   blockchain[0]=*newBlock("Noman to AL-Cybision" , 1111 , "0")
-	mniBlockChain := new(blockchain)
-	mniBlockChain.createBlock("0", 101, "Noman to AL-Cybision")
-	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 102, "AL-Cybision to Rushad")
-	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 103, "Noman to Zaid")
-	// mniBlockChain.listBlocks()
-	// fmt.Println("Output After Block Changed")
-	// mniBlockChain.list[1].changeBlock("AL-Cybision to Al-Rushad")
-	mniBlockChain.listBlocks()
-	if mniBlockChain.verifyChain() {
-		fmt.Println("BlockChain is Valid")
-	} else {
-		fmt.Println("BlockChain is Not Valid")
-	}
+// 	//   blockchain[0]=*newBlock("Noman to AL-Cybision" , 1111 , "0")
+// 	mniBlockChain := new(blockchain)
+// 	mniBlockChain.createBlock("0", 101, "Noman to AL-Cybision")
+// 	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 102, "AL-Cybision to Rushad")
+// 	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 103, "Noman to Zaid")
+// 	// mniBlockChain.listBlocks()
+// 	// fmt.Println("Output After Block Changed")
+// 	// mniBlockChain.list[1].changeBlock("AL-Cybision to Al-Rushad")
+// 	mniBlockChain.listBlocks()
+// 	if mniBlockChain.verifyChain() {
+// 		fmt.Println("BlockChain is Valid")
+// 	} else {
+// 		fmt.Println("BlockChain is Not Valid")
+// 	}
 
-	//    const lastBlock = this.chain[this.chain.length - 1];
+// 	//    const lastBlock = this.chain[this.chain.length - 1];
 
-}
+// }
