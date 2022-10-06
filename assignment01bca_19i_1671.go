@@ -130,7 +130,7 @@ func main() {
 	mniBlockChain.createBlock(mniBlockChain.prev_hash(), 103, "Noman to Zaid")
 	mniBlockChain.listBlocks()
 	fmt.Println("Output After Block Changed")
-	// mniBlockChain.list[1].changeBlock("AL-Cybision to Al-Rushad")
+	mniBlockChain.list[1].changeBlock("AL-Cybision to Al-Rushad")
 	mniBlockChain.listBlocks()
 	if mniBlockChain.verifyChain() {
 		fmt.Println("BlockChain is Valid")
