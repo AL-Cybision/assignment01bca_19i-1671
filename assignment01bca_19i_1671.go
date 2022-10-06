@@ -62,7 +62,7 @@ func (b *block) changeBlock(transaction string) {
 
 func (ls *blockchain) verifyChain() bool {
 	valid := true
-	// fmt.Println(valid)
+
 	if len(ls.list) == 1 {
 		if ls.list[0].hash != calculateBlockHash(*ls.list[0]) {
 			valid = false
@@ -72,20 +72,16 @@ func (ls *blockchain) verifyChain() bool {
 		fmt.Println("BlockChain is empty , please populate it before verifying ")
 	} else {
 		for i := range ls.list {
-			// var valid = true
 
 			if i < (len(ls.list) - 1) {
-				fmt.Println("ls.list[i].hash", ls.list[i].hash)
-				fmt.Println("ls.list[i+1].previousHash", ls.list[i+1].previousHash)
-				fmt.Println("ls.list[i].hash", ls.list[i].hash)
-				fmt.Println(" calculateBlockHash(*ls.list[i])", calculateBlockHash(*ls.list[i]))
+
 				if ls.list[i].hash != ls.list[i+1].previousHash || ls.list[i].hash != calculateBlockHash(*ls.list[i]) {
 
 					// fmt.Println("Block is Invalid")
 					valid = false
 				} else {
 					// fmt.Println("Block is Valid")
-					// valid = true
+
 				}
 			} else {
 				if ls.list[i].hash != calculateBlockHash(*ls.list[i]) {
@@ -94,7 +90,7 @@ func (ls *blockchain) verifyChain() bool {
 					valid = false
 				} else {
 					// fmt.Println("Block is Valid")
-					// valid = true
+
 				}
 
 			}
@@ -121,7 +117,6 @@ func calculateBlockHash(b block) string { // function for calculating hash of a 
 }
 
 func (ls *blockchain) prev_hash() string {
-	// fmt.Println(ls.list[ls.list.length-1].previousHash)
 	return ls.list[len(ls.list)-1].hash
 }
 
